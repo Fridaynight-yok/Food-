@@ -1,15 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class AddUserScreen extends StatefulWidget {
-  final CollectionReference<Map<String, dynamic>> users;
-  const AddUserScreen({super.key, required this.users});
+class AddFoodScreen extends StatefulWidget {
+  final CollectionReference<Map<String, dynamic>> foods;
+  const AddFoodScreen({super.key, required this.foods});
 
   @override
-  State<AddUserScreen> createState() => _AddUserScreenState();
+  State<AddFoodScreen> createState() => _AddUserScreenState();
 }
 
-class _AddUserScreenState extends State<AddUserScreen> {
+class _AddUserScreenState extends State<AddFoodScreen> {
   final chefController = TextEditingController();
   final menuController = TextEditingController();
   final ingredientsController = TextEditingController();
@@ -21,18 +21,21 @@ class _AddUserScreenState extends State<AddUserScreen> {
     final String ingredients = ingredientsController.text;
     final String image = imageController.text;
 
-    if (chef.isNotEmpty && menu.isNotEmpty && ingredients.isNotEmpty) {
+    if (chef.isNotEmpty &&
+        menu.isNotEmpty &&
+        ingredients.isNotEmpty &&
+        image.isNotEmpty) {
       chefController.clear();
       menuController.clear();
       ingredientsController.clear();
       imageController.clear();
 
       // เพิ่มข้อมูล
-      await widget.users.add({
-        'chef': chef,
-        'menu': menu,
+      await widget.foods.add({
+        'chef': {"name": chef},
+        'menu_name': menu,
         'ingredients': ingredients,
-        'image': image,
+        'image_url': image,
       });
     } else {
       ScaffoldMessenger.of(
@@ -44,30 +47,24 @@ class _AddUserScreenState extends State<AddUserScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('เพิ่มผู้ใช้')),
+      appBar: AppBar(title: Text('เพิ่มรายการอาหาร')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             TextField(
-              maxLength: 20,
               controller: chefController,
-              decoration: InputDecoration(labelText: 'เชฟ'),
+              decoration: InputDecoration(labelText: 'ชื่อ - เชฟ'),
             ),
             TextField(
-              maxLength: 20,
               controller: menuController,
               decoration: InputDecoration(labelText: 'เมนู'),
-              keyboardType: TextInputType.number, //keyborad will show as number
             ),
             TextField(
-              maxLength: 100,
               controller: ingredientsController,
               decoration: InputDecoration(labelText: 'ส่วนประกอบ'),
-              keyboardType: TextInputType.emailAddress,
             ),
             TextField(
-              maxLength: 60,
               controller: imageController,
               decoration: InputDecoration(labelText: 'รูป'),
             ),

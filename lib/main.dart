@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_3/app/food/home.dart';
 import 'package:flutter_application_3/app/home.dart';
 
 void main() async {
@@ -13,6 +14,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: Home());
+    return MaterialApp(home: MyHomePage(title: "Food"));
   }
 }
