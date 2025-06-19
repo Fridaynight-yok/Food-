@@ -6,7 +6,7 @@ class Home extends StatelessWidget {
   Home({super.key});
 
   // collection users
-  final users = FirebaseFirestore.instance.collection('foodMenu');
+  final users = FirebaseFirestore.instance.collection('users');
 
   // อ่านข้อมูล //ข้อมูลเปลี่ยน Ui เปลี่ยนทันที
   Stream<QuerySnapshot> getUsers() {
